@@ -6,7 +6,7 @@ public class Main {
     static int N, M;
 
     private static boolean inRange(int x, int y) {
-        return (x >= 0 && x < N && y >= 0 && y < M);
+        return (x >= 0 && x < N && y >= 0 && y < N);
     }
 
     public static void main(String[] args) throws IOException {
