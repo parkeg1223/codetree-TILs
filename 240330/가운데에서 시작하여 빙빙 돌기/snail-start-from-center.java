@@ -20,15 +20,18 @@ public class Main {
         int[] dy = {0, 1, 0, -1};
 
         int num = 2, step = 1;
-        for (int i = 0; i < 2*n-1; i++) {
-            for (int j = 0; j < step; j++) {
-                x += dx[dir];
-                y += dy[dir];
-                field[x][y] = num++;
+        if (n > 1) {
+            for (int i = 0; i < 2*n-1; i++) {
+                for (int j = 0; j < step; j++) {
+                    x += dx[dir];
+                    y += dy[dir];
+                    field[x][y] = num++;
+                }
+                dir = (dir + 3) % 4;
+                if (i % 2 == 1 && i != 2*n-3) step++;
             }
-            dir = (dir + 3) % 4;
-            if (i % 2 == 1 && i != 2*n-3) step++;
         }
+        
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
