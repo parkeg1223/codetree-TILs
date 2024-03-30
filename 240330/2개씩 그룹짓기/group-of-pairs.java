@@ -7,16 +7,16 @@ public class Main {
         int N = Integer.parseInt(in.readLine());
         StringTokenizer st = new StringTokenizer(in.readLine());
 
-        int[] nums = new int[N];
-        for (int i = 0; i < N; i++) {
+        int[] nums = new int[2*N];
+        for (int i = 0; i < 2*N; i++) {
             nums[i] = Integer.parseInt(st.nextToken());
         }
 
         Arrays.sort(nums);
         int maxSum = Integer.MIN_VALUE;
-        for (int i = 0; i < N; i++) {
-            if (maxSum < nums[i] + nums[N-i-1]) {
-                maxSum = nums[i] + nums[N-i-1];
+        for (int i = 0; i < 2*N; i++) {
+            if (maxSum < nums[i] + nums[2*N-i-1]) {
+                maxSum = nums[i] + nums[2*N-i-1];
             }
         }
 
