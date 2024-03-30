@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-class Forecast implements Comparable<Forecast> {
+class Forecast {
     String date, day, weather;
 
     public Forecast() {}
@@ -13,13 +13,7 @@ class Forecast implements Comparable<Forecast> {
 
     public void getInfo() {
         System.out.println(this.date + " " + this.day + " " + this.weather);
-    }
-
-    @Override
-    public int compareTo(Forecast f) {
-        return this.date.compareTo(f.date);
-    }
-    
+    }    
 }
 
 public class Main {
@@ -35,7 +29,11 @@ public class Main {
             if (f.weather.equals("Rain")) fList.add(f);
         }
 
-        Collections.sort(fList);
-        fList.get(0).getInfo();
+        int lIdx = 0;
+        for (int i = 1; i < fList.size(); i++) {
+            if (fList.get(i).date.compareTo(fList.get(lIdx).date) < 0) lIdx = i;
+        }
+
+        fList.get(lIdx).getInfo();
     }
 }
