@@ -12,10 +12,6 @@ class Person implements Comparable<Person> {
         this.weight = weight;
     }
 
-    public void getInfo() {
-        System.out.println(this.name + " " + this.height + " " + this.weight);
-    }
-
     @Override
     public int compareTo(Person p) {
         return this.height - p.height;
@@ -28,6 +24,7 @@ public class Main {
         int n = Integer.parseInt(in.readLine());
 
         Person[] ps = new Person[n];
+        StringBuilder sb = new StringBuilder();
         StringTokenizer st;
         for (int i = 0; i < n; i++) {
             st = new StringTokenizer(in.readLine());
@@ -39,9 +36,10 @@ public class Main {
         }
 
         Arrays.sort(ps);
-
+        
         for (int i = 0; i < n; i++) {
-            ps[i].getInfo();
+            sb.append(ps[i].name).append(" ").append(ps[i].height).append(" ").append(ps[i].weight).append("\n");
         }
+        System.out.print(sb.toString());
     }
 }
