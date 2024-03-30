@@ -13,13 +13,14 @@ public class Main {
         }
 
         Arrays.sort(nums);
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < n; i++) {
-            System.out.print(nums[i] + " ");
+            sb.append(nums[i]).append(" ");
         }
-        System.out.println();
+        sb.append("\n");
         for (int i = n-1; i >= 0; i--) {
-            System.out.print(nums[i] + " ");
+            sb.append(nums[i]).append(" ");
         }
-        System.out.println();
+        System.out.println(sb.toString());
     }
 }
