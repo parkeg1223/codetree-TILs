@@ -33,6 +33,7 @@ public class Main {
         int N = Integer.parseInt(in.readLine());
 
         Student[] students = new Student[N];
+        StringBuilder sb = new StringBuilder();
         StringTokenizer st;
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(in.readLine());
@@ -45,7 +46,11 @@ public class Main {
 
         Arrays.sort(students);
         for (int i = 0; i < N; i++) {
-            students[i].getInfo();
+            sb.append(students[i].height).append(" ")
+                .append(students[i].weight).append(" ")
+                .append(students[i].idx).append("\n");
         }
+
+        System.out.print(sb.toString());
     }
 }
