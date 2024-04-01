@@ -21,7 +21,7 @@ public class Main {
             prevNum = field[row][0];
             for (int j = 0; j < n; j++) {
                 if (field[row][j] == prevNum) {
-                        if (++consec >= m) return 1;
+                    if (++consec >= m) return 1;
                 } else {
                     prevNum = field[row][j];
                     consec = 1;
