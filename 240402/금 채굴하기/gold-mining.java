@@ -44,7 +44,8 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
                     int value = getNumberOfGolds(i, j, K);
-                    if (maxNumOfGolds < value && price < value * m) maxNumOfGolds = value;
+                    System.out.println(i + " " + j + " " + K + " " + value);
+                    if (maxNumOfGolds < value && price <= value * m) maxNumOfGolds = value;
                 }
             }
         }
