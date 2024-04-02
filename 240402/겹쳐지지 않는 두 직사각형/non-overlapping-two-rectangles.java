@@ -69,13 +69,6 @@ public class Main {
         int maxSum = Integer.MIN_VALUE;
         List<int[]> rowIdx = getNotOverlappedIdx(n);
         List<int[]> colIdx = getOverlappedIdx(m);
-        // for (int i = 0; i < rowIdx.size(); i++) {
-        //     System.out.println(Arrays.toString(rowIdx.get(i)));
-        // }
-        // System.out.println("--------------");        
-        // for (int i = 0; i < colIdx.size(); i++) {
-        //     System.out.println(Arrays.toString(colIdx.get(i)));
-        // }
 
         for (int i = 0; i < rowIdx.size(); i++) {
             for (int j = 0; j < colIdx.size(); j++) {
