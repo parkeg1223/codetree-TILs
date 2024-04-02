@@ -10,7 +10,7 @@ public class Main {
         int t = Integer.parseInt(st.nextToken());
 
         ArrayDeque<Integer> queue = new ArrayDeque<>();
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < 3; i++) {
             st = new StringTokenizer(in.readLine());
             for (int j = 0; j < n; j++) {
                 queue.offer(Integer.parseInt(st.nextToken()));
