@@ -3,29 +3,17 @@ import java.util.*;
 
 public class Main {
     static int N, M, Q;
-    static int[][] field;
+    static List<List<Integer>> field = new ArrayList<>();
 
     public static boolean hasSameNum(int row) {
         for (int i = 0; i < M; i++) {
-            if (field[row][i] == field[row-1][i]) return true;
+            if (field.get(row).get(i) == field.get(row-1).get(i)) return true;
         }
         return false;
     }
 
     public static void wind(int row, int dir) {
-        if (dir == 1) {
-            int temp = field[row][0];
-            for (int i = 1; i < M; i++) {
-                field[row][i-1] = field[row][i];
-            }
-            field[row][M-1] = temp;
-        } else if (dir == -1) {
-            int temp = field[row][M-1];
-            for (int i = M-1; i > 0; i--) {
-                field[row][i] = field[row][i-1];
-            }
-            field[row][0] = temp;
-        }
+        Collections.rotate(field.get(row), dir);
     } 
 
     public static void main(String[] args) throws IOException {
@@ -36,12 +24,14 @@ public class Main {
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
         Q = Integer.parseInt(st.nextToken());
-        field = new int[N][M];
+        for (int i = 0; i < N; i++) {
+            field.add(new ArrayList<>());
+        }
 
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(in.readLine());
             for (int j = 0; j < M; j++) {
-                field[i][j] = Integer.parseInt(st.nextToken());
+                field.get(i).add(Integer.parseInt(st.nextToken()));
             }
         }
 
@@ -50,22 +40,22 @@ public class Main {
             int r = Integer.parseInt(st.nextToken()) - 1;
             char d = st.nextToken().charAt(0);
 
-            int dir = (d == 'L') ? -1 : 1;
-            wind(r, dir);
+            int dir = (d == 'L') ? 1 : -1;
+            Collections.rotate(field.get(r), dir);
             dir *= -1;
             for (int j = r; j > 0; j--) {
                 if (hasSameNum(j)) {
-                    wind(j-1, dir);
+                    Collections.rotate(field.get(j-1), dir);
                     dir *= -1;
                 } else {
                     break;
                 }
             }
 
-            dir = (d == 'L') ? 1 : -1;
+            dir = (d == 'L') ? -1 : 1;
             for (int j = r+1; j < N; j++) {
                 if (hasSameNum(j)) {
-                    wind (j, dir);
+                    Collections.rotate(field.get(j), dir);
                     dir *= -1;
                 } else {
                     break;
@@ -75,7 +65,7 @@ public class Main {
 
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
-                sb.append(field[i][j]).append(' ');
+                sb.append(field.get(i).get(j)).append(' ');
             }
             sb.append('\n');
         }
