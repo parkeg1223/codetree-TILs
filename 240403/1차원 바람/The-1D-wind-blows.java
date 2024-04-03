@@ -12,10 +12,6 @@ public class Main {
         return false;
     }
 
-    public static void wind(int row, int dir) {
-        Collections.rotate(field.get(row), dir);
-    } 
-
     public static void main(String[] args) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(in.readLine());
@@ -47,9 +43,7 @@ public class Main {
                 if (hasSameNum(j)) {
                     Collections.rotate(field.get(j-1), dir);
                     dir *= -1;
-                } else {
-                    break;
-                }
+                } else break;
             }
 
             dir = (d == 'L') ? -1 : 1;
@@ -57,9 +51,7 @@ public class Main {
                 if (hasSameNum(j)) {
                     Collections.rotate(field.get(j), dir);
                     dir *= -1;
-                } else {
-                    break;
-                }
+                } else break;
             }
         }
 
