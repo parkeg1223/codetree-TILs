@@ -82,7 +82,6 @@ public class Main {
             }
         }
         numOfBombs[col] = N-1-tempIdx;
-        System.out.println("in fall func: " + Arrays.toString(numOfBombs));
 
         for (int i = 0; i < N; i++) {
             field[i][col] = temp[i];
