@@ -8,38 +8,46 @@ public class Main {
 
     public static void explode() {
         // 폭발
-        for (int i = 0; i < N; i++) {
-            if (numOfBombs[i] > 0) {
-                boolean isExploded = false;
-                do {
-                    isExploded = false;
-                    int numOfSequence = 0, sIdx = 0;
-                    boolean isSequenceExploded = false;
-                    for (int j = N-numOfBombs[i]; j < N; j++) {
-                        if (field[j][i] == field[sIdx][i]) {
-                            if (++numOfSequence >= M) {
-                                isExploded = true;
-                                isSequenceExploded = true;
-                            }
-                        } else {
-                            if (isSequenceExploded) {
-                                for (int k = sIdx; k < j; k++) {
-                                    field[k][i] = 0;
+        if (M == 1) {
+            for (int i = 0; i < N; i++) {
+                Arrays.fill(field[i], 0);
+            }
+            Arrays.fill(numOfBombs, 0);
+        } else {
+            for (int i = 0; i < N; i++) {
+                if (numOfBombs[i] > 0) {
+                    boolean isExploded = false;
+                    do {
+                        isExploded = false;
+                        int numOfSequence = 0, sIdx = 0;
+                        boolean isSequenceExploded = false;
+                        for (int j = N-numOfBombs[i]; j < N; j++) {
+                            if (field[j][i] == field[sIdx][i]) {
+                                if (++numOfSequence >= M) {
+                                    isExploded = true;
+                                    isSequenceExploded = true;
                                 }
-                                isSequenceExploded = false;
+                            } else {
+                                if (isSequenceExploded) {
+                                    for (int k = sIdx; k < j; k++) {
+                                        field[k][i] = 0;
+                                    }
+                                    isSequenceExploded = false;
+                                }
+                                sIdx = j;
+                                numOfSequence = 1;
                             }
-                            sIdx = j;
-                            numOfSequence = 1;
                         }
-                    }
-                    if (isSequenceExploded) {
-                        for (int k = sIdx; k < N; k++) {
-                            field[k][i] = 0;
+                        if (isSequenceExploded) {
+                            for (int k = sIdx; k < N; k++) {
+                                field[k][i] = 0;
+                            }
+                            isSequenceExploded = false;
                         }
-                        isSequenceExploded = false;
-                    }
-                    if (isExploded) fall(i);
-                } while (isExploded);
+
+                        if (isExploded) fall(i);
+                    } while (isExploded);
+                }
             }
         }
     }
@@ -74,6 +82,7 @@ public class Main {
             }
         }
         numOfBombs[col] = N-1-tempIdx;
+        System.out.println("in fall func: " + Arrays.toString(numOfBombs));
 
         for (int i = 0; i < N; i++) {
             field[i][col] = temp[i];
