@@ -5,41 +5,43 @@ public class Main {
     static int N, M, K;
     static int[][] field;
     static int[] numOfBombs;
-    static boolean[] exploded;
 
     public static void explode() {
         // 폭발
         for (int i = 0; i < N; i++) {
             if (numOfBombs[i] > 0) {
-                int numOfSequence = 0, sIdx = 0;
-                boolean isSequenceExploded = false;
-                for (int j = 0; j < N; j++) {
-                    if (field[j][i] == field[sIdx][i]) {
-                        if (++numOfSequence >= M) {
-                            exploded[i] = true;
-                            isSequenceExploded = true;
-                        }
-                    } else {
-                        if (isSequenceExploded) {
-                            for (int k = sIdx; k < j; k++) {
-                                field[k][i] = 0;
+                boolean isExploded = false;
+                do {
+                    isExploded = false;
+                    int numOfSequence = 0, sIdx = 0;
+                    boolean isSequenceExploded = false;
+                    for (int j = N-numOfBombs[i]; j < N; j++) {
+                        if (field[j][i] == field[sIdx][i]) {
+                            if (++numOfSequence >= M) {
+                                isExploded = true;
+                                isSequenceExploded = true;
                             }
-                            isSequenceExploded = false;
+                        } else {
+                            if (isSequenceExploded) {
+                                for (int k = sIdx; k < j; k++) {
+                                    field[k][i] = 0;
+                                }
+                                isSequenceExploded = false;
+                            }
+                            sIdx = j;
+                            numOfSequence = 1;
                         }
-                        sIdx = j;
-                        numOfSequence = 1;
                     }
-                }
-                if (isSequenceExploded) {
-                    for (int k = sIdx; k < N; k++) {
-                        field[k][i] = 0;
+                    if (isSequenceExploded) {
+                        for (int k = sIdx; k < N; k++) {
+                            field[k][i] = 0;
+                        }
+                        isSequenceExploded = false;
                     }
-                }
+                    if (isExploded) fall(i);
+                } while (isExploded);
             }
         }
-        
-        fall();
-        Arrays.fill(exploded, false);
     }
 
     public static void rotate() {
@@ -61,28 +63,20 @@ public class Main {
         }
     }
 
-    public static void fall() {
+    public static void fall(int col) {
         // 폭발로 떨어지기
-        int[][] temp = new int[N][N];
+        int[] temp = new int[N];
 
-        for (int i = 0; i < N; i++) {
-            if (exploded[i]) {
-                int tempIdx = N-1;
-                for (int j = 0; j < N; j++) {
-                    if (field[N-j-1][i] != 0) {
-                        temp[tempIdx--][i] = field[N-j-1][i];
-                    }
-                }
-                numOfBombs[i] = N-1-tempIdx;
+        int tempIdx = N-1;
+        for (int j = 0; j < N; j++) {
+            if (field[N-j-1][col] != 0) {
+                temp[tempIdx--] = field[N-j-1][col];
             }
         }
+        numOfBombs[col] = N-1-tempIdx;
 
         for (int i = 0; i < N; i++) {
-            if (exploded[i]) {
-                for (int j = 0; j < N; j++) {
-                    field[j][i] = temp[j][i];
-                }
-            }
+            field[i][col] = temp[i];
         }
     }
 
@@ -95,7 +89,6 @@ public class Main {
         K = Integer.parseInt(st.nextToken());
         field = new int[N][N];
         numOfBombs = new int[N];
-        exploded = new boolean[N];
 
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(in.readLine());
