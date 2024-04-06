@@ -27,9 +27,11 @@ public class Main {
         	}
         }
         
-        while (true) {
+        
+        boolean isProceedable = true;
+        while (isProceedable) {
+            isProceedable = false;
         	sb.append(field[currX][currY]).append(' ');
-        	boolean isProceedable = false;
         	for (int i = 0; i < 4; i++) {
         		int nx = currX + dx[i];
         		int ny = currY + dy[i];
@@ -39,7 +41,6 @@ public class Main {
         			break;
         		}
         	}
-        	if (!isProceedable) break;
         }
         
         System.out.println(sb.toString());
