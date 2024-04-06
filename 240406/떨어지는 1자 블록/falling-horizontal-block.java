@@ -25,15 +25,12 @@ public class Main {
         
         int highstIdx = n;
         for (int i = k; i < k+m; i++) {
-        	highstIdx = Math.min(highstIdx, highestIdxs[i]);
+        	if (highestIdxs[i] != 0) {
+        		highstIdx = Math.min(highstIdx, highestIdxs[i]);
+        	}
         }
         
-        if (highstIdx == 0) {
-        	Arrays.fill(field[n-1], k, k+m, 1);
-        } else {
-        	Arrays.fill(field[highstIdx-1], k, k+m, 1);
-        }
-        
+        Arrays.fill(field[highstIdx-1], k, k+m, 1);
         for (int i = 0; i < n; i++) {
         	for (int j = 0; j < n; j++) {
         		sb.append(field[i][j]).append(' ');
