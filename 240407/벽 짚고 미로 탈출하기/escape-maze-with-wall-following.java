@@ -50,16 +50,16 @@ public class Main {
         		} else visited[nx][ny][dir] = true;
         		if (field[nx + dx[(dir+3)%4]][ny + dy[(dir+3)%4]] == '#') {
         			currX = nx; currY = ny;
-            	} else {
-            		time++;
-            		dir = (dir + 3) % 4;
-            		currX = nx + dx[dir];
-            		currY = ny + dy[dir];
-            		if (visited[currX][currY][dir]) {
-            			System.out.println(-1);
-            			return;
-            		} else visited[currX][currY][dir] = true;
-            	}
+	            	} else {
+	            		time++;
+	            		dir = (dir + 3) % 4;
+	            		currX = nx + dx[dir];
+	            		currY = ny + dy[dir];
+	            		if (visited[currX][currY][dir]) {
+	            			System.out.println(-1);
+	            			return;
+	            		} else visited[currX][currY][dir] = true;
+	            	}
         	}
         }
     }
