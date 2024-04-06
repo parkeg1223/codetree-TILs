@@ -56,41 +56,12 @@ public class Main {
     public static int getNumOfPairs() {
         int numOfPairs = 0;
         for (int i = 0; i < n; i++) {
-            int numOfSequence = 0, prev = 0;
             for (int j = 0; j < n; j++) {
-                if (field[i][j] != 0 && field[i][j] == field[i][prev]) {
-                    numOfSequence++;
-                } else {
-                    if (numOfSequence == 2) numOfPairs++;
-                    if (field[i][j] == 0) {
-                        numOfSequence = 0;
-                    } else {
-                        numOfSequence = 1;
-                    }
-                    prev = j;
-                }
+                if (field[i][j] == 0) continue;
+                if (j < n-1 && field[i][j] == field[i][j+1]) numOfPairs++;
+                if (i < n-1 && field[i][j] == field[i+1][j]) numOfPairs++;
             }
-            if (numOfSequence == 2) numOfPairs++;
         }
-
-        for (int i = 0; i < n; i++) {
-            int numOfSequence = 0, prev = 0;
-            for (int j = 0; j < n; j++) {
-                if (field[j][i] != 0 && field[j][i] == field[prev][i]) {
-                    numOfSequence++;
-                } else {
-                    if (numOfSequence == 2) numOfPairs++;
-                    if (field[j][i] == 0) {
-                        numOfSequence = 0;
-                    } else {
-                        numOfSequence = 1;
-                    }
-                    prev = j;
-                }
-            }
-            if (numOfSequence == 2) numOfPairs++;
-        }
-
         return numOfPairs;
     }
 
