@@ -25,15 +25,18 @@ public class Main {
 			} else if (ch == 'D') {
 				nx += dx[2]; ny += dy[2];
 			}
-			if (!inRange(nx, ny) || field[nx][ny]) {
+			if (!inRange(nx, ny)) {
 				return false;
 			}
-			queue.offer(new int[] {nx, ny});
-			field[nx][ny] = true;
 			if (!hasApple[nx][ny]) {
 				int[] tail = queue.poll();
 				field[tail[0]][tail[1]] = false;
-			}
+			} else {
+                hasApple[nx][ny] = false;
+            }
+			if (field[nx][ny]) return false;
+			queue.offer(new int[] {nx, ny});
+			field[nx][ny] = true;
 			x = nx; y = ny;
 		}
 		return true;
@@ -56,6 +59,7 @@ public class Main {
 		}
 		
 		field[0][0] = true;
+		queue.offer(new int[] {x, y});
 		for (int i = 0; i < K; i++) {
 			st = new StringTokenizer(in.readLine());
 			char ch = st.nextToken().charAt(0);
