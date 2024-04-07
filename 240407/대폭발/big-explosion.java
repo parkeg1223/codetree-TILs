@@ -26,19 +26,21 @@ public class Main {
 		bombs.add(new int[] {r, c});
 		visited[r][c] = true;
 		
+		int dist = 1;
 		for (int i = 1; i <= m; i++) {
 			List<int[]> newBombs = new ArrayList<>();
 			for (int j = 0; j < bombs.size(); j++) {
 				int[] b = bombs.get(j);
 				for (int k = 0; k < 4; k++) {
-					int nx = b[0] + i*dx[k];
-					int ny = b[1] + i*dy[k];
+					int nx = b[0] + dist*dx[k];
+					int ny = b[1] + dist*dy[k];
 					if (!inRange(nx, ny) || visited[nx][ny]) continue;
 					newBombs.add(new int[] {nx, ny});
 					visited[nx][ny] = true;
 				}
 			}
 			bombs.addAll(newBombs);
+			dist *= 2;
 		}
 		
 		System.out.println(bombs.size());
