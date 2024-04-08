@@ -23,7 +23,7 @@ public class Main {
 		return (x >= 0 && x < n && y >= 0 && y < n);
 	}
 	
-	public static boolean move(int num) {
+	public static void move(int num) {
 		int x = numbers[num].x, y = numbers[num].y;
 		int maxVal = 0, maxIdx = 0;
 		for (int i = 0; i < 8; i++) {
@@ -35,7 +35,7 @@ public class Main {
 			}
 		}
 		
-		if (maxVal == 0) return false;
+		if (maxVal == 0) return;
 		
 		// num 이동
 		ArrayDeque<Integer> queue = new ArrayDeque<>();
@@ -57,8 +57,6 @@ public class Main {
 		if (field[x][y].size() > 0) {
 			maxValue[x][y] = Collections.max(field[x][y]);
 		} else maxValue[x][y] = -1;
-		
-		return true;
 	}
 	
 	public static void main(String[] args) throws IOException {
@@ -85,7 +83,7 @@ public class Main {
 		
 		st = new StringTokenizer(in.readLine());
 		for (int i = 0; i < m; i++) {
-			if (!move(Integer.parseInt(st.nextToken()))) break;
+			move(Integer.parseInt(st.nextToken()));
 		}
 		
 		for (int i = 0; i < n; i++) {
