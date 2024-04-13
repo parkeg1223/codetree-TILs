@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-	static int L, N, Q;
+	static int L, N, Q, nKnight;
 	static int[] dx = {-1, 0, 1, 0};
 	static int[] dy = {0, 1, 0, -1};
 	static int[][] field, kField;
@@ -72,22 +72,34 @@ public class Main {
 		int[][] temp = new int[L][L];
 		for (int j = 1; j <= N; j++) {
 			Knight kn = knights[j];
+			if (kn.k <= 0) continue;
 			if (moved[j]) {
 				kn.r += dx[d];
 				kn.c += dy[d];
 			}
 			
-			moved[i] = false;
-			for (int k = kn.r; k < kn.r+kn.h; k++) {
-				for (int l = kn.c; l < kn.c+kn.w; l++) {
-					if (moved[j] && field[k][l] == 1) damages[j]++;
-					temp[k][l] = j;
+			int decreasedHp = 0;
+			if (moved[j] && j != i) {
+				for (int k = kn.r; k < kn.r+kn.h; k++) {
+					for (int l = kn.c; l < kn.c+kn.w; l++) {
+						if (moved[j] && field[k][l] == 1) decreasedHp++;
+					}
 				}
+				kn.k -= decreasedHp;
+				damages[j] += decreasedHp;
 			}
 			
-			for (int k = 0; k < L; k++) {
-				kField[k] = Arrays.copyOf(temp[k], L);
-			}
+			if (kn.k > 0) {
+				for (int k = kn.r; k < kn.r+kn.h; k++) {
+					for (int l = kn.c; l < kn.c+kn.w; l++) {
+						temp[k][l] = j;
+					}
+				}
+			} else nKnight--;
+			
+		}
+		for (int k = 0; k < L; k++) {
+			kField[k] = Arrays.copyOf(temp[k], L);
 		}
 		Arrays.fill(moved, false);
 	}
@@ -97,7 +109,7 @@ public class Main {
 		StringTokenizer st = new StringTokenizer(in.readLine());
 		
 		L = Integer.parseInt(st.nextToken());
-		N = Integer.parseInt(st.nextToken());
+		nKnight = N = Integer.parseInt(st.nextToken());
 		Q = Integer.parseInt(st.nextToken());
 		
 		field = new int[L][L];
@@ -134,13 +146,15 @@ public class Main {
 			int i = Integer.parseInt(st.nextToken());
 			int d = Integer.parseInt(st.nextToken());
 			if (isMovable(i, d)) {
+				if (knights[i].k <= 0) continue;
 				move(i, d);
+				if (nKnight <= 0) break;
 			}
 		}
 		
 		int dSum = 0;
 		for (int i = 1; i <= N; i++) {
-			dSum += damages[i];
+			if (knights[i].k > 0) dSum += damages[i];
 		}
 		
 		System.out.println(dSum);
