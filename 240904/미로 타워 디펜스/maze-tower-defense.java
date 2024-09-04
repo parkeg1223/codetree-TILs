@@ -21,17 +21,6 @@ public class Main {
         System.out.println(bead[1] + 2 * bead[2] + 3 * bead[3]);
     }
 
-    private static void printGroup() {
-        System.out.println(groups.size());
-//        for (int[] group: groups) {
-//            System.out.print(Arrays.toString(group) + ", ");
-//        }
-        for (int i = 0; i < N; i++) {
-            System.out.println(Arrays.toString(gInfo[i]));
-        }
-        System.out.println();
-    }
-
     public static void group() {
         int x = N/2, y = N/2-1, d = 1, dir = 2, val = field[x][y], amount = 1, group = 1;
         if (field[x][y] != 0) gInfo[x][y] = 1;
