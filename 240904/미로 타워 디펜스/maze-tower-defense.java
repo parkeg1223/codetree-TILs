@@ -34,6 +34,7 @@ public class Main {
 
     public static void group() {
         int x = N/2, y = N/2-1, d = 1, dir = 2, val = field[x][y], amount = 1, group = 1;
+        if (field[x][y] != 0) gInfo[x][y] = 1;
         while (true) {
             for (int i = 0; i < d; i++) {
                 x += dx[dir];
